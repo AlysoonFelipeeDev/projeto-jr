@@ -1,8 +1,13 @@
-import Login from "./components/Login"
+import CreateTasks from "./components/CreateTasks"
+import { GlobalStyle } from "./styles/GlobalStyles"
+
 
 function App() {
   return (
-    <Login />
+    <>
+      <GlobalStyle />
+      <CreateTasks />
+    </>
   )
 }
 
