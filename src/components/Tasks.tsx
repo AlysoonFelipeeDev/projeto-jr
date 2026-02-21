@@ -1,6 +1,24 @@
+import { useEffect, useState } from "react"
 import styled from "styled-components"
+import type { Task } from "./types/tasks.type"
+import axios from "axios"
 
 export default function Tasks() {
+    const [tasks, setTasks] = useState<Task[]>([])
+
+    async function getTasks(){
+        try {
+            const response = await axios.get("https://699670627d17864365742c8c.mockapi.io/tasks")
+            setTasks(response.data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    useEffect(() => {
+        getTasks()
+    })
+
     return (
         <ContainerTask>
             <Header>
@@ -9,30 +27,16 @@ export default function Tasks() {
             </Header>
                 <DailyTasks>
                     <ul>
+                        {tasks.map(task => (
                         <li>
-                            - Acordar
+                            - {task.title}
                             <EditDelete>
                                 <Done>Ok</Done>
                                 <div>Editar</div>
                                 <Delete>X</Delete>
                             </EditDelete>
                         </li>
-                        <li>
-                            - Tomar Café
-                            <EditDelete>
-                                <Done>Ok</Done>
-                                <div>Editar</div>
-                                <Delete>X</Delete>
-                            </EditDelete>
-                        </li>
-                        <li>
-                            - Trabalhar
-                            <EditDelete>
-                                <Done>Ok</Done>
-                                <div>Editar</div>
-                                <Delete>X</Delete>
-                            </EditDelete>
-                        </li>
+                        ))}
                     </ul>
                 </DailyTasks>
         </ContainerTask>
