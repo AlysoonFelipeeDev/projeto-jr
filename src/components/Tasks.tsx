@@ -8,7 +8,7 @@ export default function Tasks() {
 
     async function getTasks(){
         try {
-            const response = await axios.get("https://699670627d17864365742c8c.mockapi.io/tasks")
+            const response = await axios.get<Task[]>("https://699670627d17864365742c8c.mockapi.io/tasks")
             setTasks(response.data)
         } catch (error) {
             console.error(error)
@@ -17,7 +17,7 @@ export default function Tasks() {
 
     useEffect(() => {
         getTasks()
-    })
+    }, [])
 
     return (
         <ContainerTask>
@@ -28,7 +28,7 @@ export default function Tasks() {
                 <DailyTasks>
                     <ul>
                         {tasks.map(task => (
-                        <li>
+                        <li key={task.id}>
                             - {task.title}
                             <EditDelete>
                                 <Done>Ok</Done>
